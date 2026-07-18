@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://be8qbmt0fe144"]
+
+[ext_resource type="Script" uid="uid://b5fed1tqx5ybj" path="res://Scripts/player/player_movement.gd" id="1_v0iea"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_6t5aa"]
+[ext_resource type="Script" uid="uid://b74pkao63d7dn" path="res://Scripts/player/camera.gd" id="2_cvnsp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f60y1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vgqql"]
+albedo_texture = ExtResource("2_6t5aa")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_v0iea"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1783821798]
+script = ExtResource("1_v0iea")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=753715862]
+shape = SubResource("CapsuleShape3D_f60y1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1834752636]
+material_override = SubResource("StandardMaterial3D_vgqql")
+mesh = SubResource("CapsuleMesh_v0iea")
+
+[node name="heads" type="Node3D" parent="." unique_id=1155936046]
+
+[node name="FP_head_postion" type="Node3D" parent="heads" unique_id=1666788317]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30414176, 0.0050213337)
+
+[node name="TP_head_postion" type="Node3D" parent="heads" unique_id=2123540376]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2272387, -4.535366)
+
+[node name="head" type="Node3D" parent="heads" unique_id=673965934]
+transform = Transform3D(0.38268343, 0, -0.9238795, 0, 1, 0, 0.9238795, 0, 0.38268343, 0, 0.54728425, 0.030668497)
+script = ExtResource("2_cvnsp")
+fp_mouse_sens = 3.115
+fp_pitch_clamp_MIN = -60.0
+fp_pitch_clamp_MAX = 60.0
+tp_mouse_sens = 1.325
+tp_pitch_clamp_MIN = -60.0
+tp_pitch_clamp_MAX = 60.0
+switch_speed = 0.2
+
+[node name="Camera" type="Camera3D" parent="heads/head" unique_id=1033037301]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="components" type="Node" parent="." unique_id=1830880392]
