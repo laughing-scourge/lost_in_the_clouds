@@ -52,8 +52,10 @@ func _physics_process(delta: float) -> void:
 
 func camera_movement():
 	if look_mode == 1: 
+		$Camera.fov = 90.0
 		FP_look()
 	if look_mode == -1:
+		$Camera.fov = 120.0
 		TP_look()
 
 func FP_look():
