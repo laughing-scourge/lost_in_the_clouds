@@ -16,10 +16,10 @@ var wanted_speed: float
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
+	
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
-
+	
 	input_dir = Input.get_vector("rightward", "letfward", "backward", "forward")
 	
 	var move_dir = head.global_basis.x * input_dir.x + head.global_basis.z * input_dir.y
@@ -27,6 +27,9 @@ func _physics_process(delta: float) -> void:
 	move_dir = move_dir.normalized()
 	
 	wanted_speed = walk_speed
+	
+	if Input.is_action_pressed("sprint"):
+		wanted_speed = run_speed
 	
 	if move_dir:
 		velocity.x = move_dir.x * wanted_speed
@@ -38,6 +41,6 @@ func _physics_process(delta: float) -> void:
 	if move_dir.length() > 0.01:
 		var target_angle = atan2(move_dir.x, move_dir.z)
 		rotation.y = lerp_angle(rotation.y, target_angle, delta * rotate_speed)
-		
+	
 	move_and_slide()
 	

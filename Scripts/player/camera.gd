@@ -9,15 +9,14 @@ enum CURRENT_LOOK_MODE{
 @onready var TP_postion: Vector3 = %TP_head_postion.position
 
 @export_category("reffrences")
-@export var player:player_controller
 
 @export_category("FP")
-@export var fp_mouse_sens: float
+@export_range(0.1,20.0) var fp_mouse_sens: float
 @export_range(-90,90) var fp_pitch_clamp_MIN : float
 @export_range(-90,90) var fp_pitch_clamp_MAX : float
 
 @export_category("TP")
-@export var tp_mouse_sens: float
+@export_range(0.1,20.0) var tp_mouse_sens: float
 @export_range(-90,90) var tp_pitch_clamp_MIN : float
 @export_range(-90,90) var tp_pitch_clamp_MAX : float
 
@@ -58,18 +57,19 @@ func camera_movement():
 		$Camera.fov = 120.0
 		TP_look()
 
+
 func FP_look():
-	_rotation += -mouse_delta * fp_mouse_sens
+	_rotation += -mouse_delta * fp_mouse_sens * 0.005
 	_rotation.y = clampf(_rotation.y,deg_to_rad(fp_pitch_clamp_MIN),deg_to_rad(fp_pitch_clamp_MAX))
 	
 	global_transform.basis = Basis.from_euler(Vector3(_rotation.y,-_rotation.x,0))
 
+
 func TP_look():
-	_rotation += -mouse_delta * tp_mouse_sens
+	_rotation += mouse_delta * tp_mouse_sens * 0.005
 	_rotation.y = clampf(_rotation.y,deg_to_rad(tp_pitch_clamp_MIN),deg_to_rad(tp_pitch_clamp_MAX))
 	
 	global_transform.basis = Basis.from_euler(Vector3(-_rotation.y,_rotation.x,0))
-	
 
 
 func move_camera():

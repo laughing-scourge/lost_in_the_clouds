@@ -13,6 +13,7 @@ albedo_texture = ExtResource("2_6t5aa")
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1783821798]
 script = ExtResource("1_v0iea")
+run_speed = 10.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=753715862]
 shape = SubResource("CapsuleShape3D_f60y1")
@@ -36,12 +37,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8809881, -4.535366)
 [node name="head" type="Node3D" parent="Pivot/heads" unique_id=673965934]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0.54728425, 0.030668497)
 script = ExtResource("2_cvnsp")
-fp_mouse_sens = 0.005
+fp_mouse_sens = 1.0
 fp_pitch_clamp_MIN = -80.0
 fp_pitch_clamp_MAX = 50.0
-tp_mouse_sens = 0.005
+tp_mouse_sens = 1.0
 tp_pitch_clamp_MIN = -50.0
-tp_pitch_clamp_MAX = 90.0
+tp_pitch_clamp_MAX = 50.0
 switch_speed = 0.2
 
 [node name="Camera" type="Camera3D" parent="Pivot/heads/head" unique_id=1033037301]
