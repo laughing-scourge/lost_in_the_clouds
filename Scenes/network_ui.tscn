@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bi5wnt3fnsga0"]
+
+[ext_resource type="Script" uid="uid://csm5iku557o6p" path="res://Scripts/network/network_ui.gd" id="1_d3qge"]
+
+[node name="network ui" type="Node2D" unique_id=1221119326]
+script = ExtResource("1_d3qge")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1452732870]
+
+[node name="host" type="Button" parent="CanvasLayer" unique_id=60372249]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "host"
+
+[connection signal="pressed" from="CanvasLayer/host" to="." method="_on_host_pressed"]

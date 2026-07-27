@@ -50,37 +50,33 @@ func _physics_process(delta: float) -> void:
 
 
 func camera_movement():
+	var head: SpringArm3D = $"."
 	if look_mode == 1: 
-		$Camera.fov = 90.0
+		head.spring_length = lerpf(head.spring_length,0,switch_speed)
+		$Camera.fov = lerp($Camera.fov, 90.0 ,switch_speed)
 		FP_look()
 	if look_mode == -1:
-		$Camera.fov = 120.0
+		head.spring_length = lerpf(head.spring_length,6,switch_speed)
+		$Camera.fov = lerp($Camera.fov, 120.0 ,switch_speed)
 		TP_look()
 
 
 func FP_look():
-	_rotation += -mouse_delta * fp_mouse_sens * 0.005
+	_rotation += mouse_delta * fp_mouse_sens * 0.005
 	_rotation.y = clampf(_rotation.y,deg_to_rad(fp_pitch_clamp_MIN),deg_to_rad(fp_pitch_clamp_MAX))
 	
-	global_transform.basis = Basis.from_euler(Vector3(_rotation.y,-_rotation.x,0))
+	global_transform.basis = Basis.from_euler(Vector3(_rotation.y,_rotation.x,0))
 
 
 func TP_look():
-	_rotation += mouse_delta * tp_mouse_sens * 0.005
+	_rotation.x += mouse_delta.x * tp_mouse_sens * 0.005
+	_rotation.y += mouse_delta.y * tp_mouse_sens * 0.005
 	_rotation.y = clampf(_rotation.y,deg_to_rad(tp_pitch_clamp_MIN),deg_to_rad(tp_pitch_clamp_MAX))
 	
-	global_transform.basis = Basis.from_euler(Vector3(-_rotation.y,_rotation.x,0))
+	global_transform.basis = Basis.from_euler(Vector3(_rotation.y,_rotation.x,0))
 
-
-func move_camera():
-	var wanted_postion: Vector3
-	if look_mode == 1:
-		wanted_postion = FP_postion
-	if look_mode == -1:
-		wanted_postion = TP_postion
-	$Camera.position = $Camera.position.lerp(wanted_postion,switch_speed)
 
 func toggle_look_mode():
 	if Input.is_action_just_pressed("camera_toggle"):
 		look_mode*=-1
-	move_camera()
+	
