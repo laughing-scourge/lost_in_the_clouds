@@ -9,6 +9,7 @@ enum CURRENT_LOOK_MODE{
 @onready var TP_postion: Vector3 = %TP_head_postion.position
 
 @export_category("reffrences")
+@onready var character_body_3d: CharacterBody3D = $"../../.."
 
 @export_category("FP")
 @export_range(0.1,20.0) var fp_mouse_sens: float
@@ -27,15 +28,28 @@ var _rotation: Vector2
 var mouse_delta: Vector2
 var pitch_yaw: Vector2
 
-var look_mode: CURRENT_LOOK_MODE = 1
+var look_mode: CURRENT_LOOK_MODE = -1
 var mouse_mode: Input.MouseMode = Input.MOUSE_MODE_CAPTURED
 
+func _enter_tree() -> void:
+	
+	print_debug(get_parent().get_parent().get_parent().name)
+
+
 func _unhandled_input(event: InputEvent):
+	if not is_multiplayer_authority():
+		return
+		
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		mouse_delta += -event.screen_relative  
+		mouse_delta += -event.screen_relative
 
 
 func _physics_process(delta: float) -> void:
+	pass
+	
+
+func  _camera_process(delta: float) -> void:
+	
 	toggle_look_mode()
 	camera_movement()
 	
@@ -47,6 +61,7 @@ func _physics_process(delta: float) -> void:
 	
 	mouse_delta = Vector2.ZERO
 	Input.mouse_mode = mouse_mode
+	
 
 
 func camera_movement():
@@ -79,4 +94,3 @@ func TP_look():
 func toggle_look_mode():
 	if Input.is_action_just_pressed("camera_toggle"):
 		look_mode*=-1
-	

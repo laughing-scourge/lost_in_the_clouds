@@ -20,7 +20,6 @@ func _process(delta: float) -> void:
 
 func host_lobby() -> void:
 	Steam.createLobby(LOBBY_TYPE,MAX_MEMBERS)
-	pass
 
 
 func on_lobby_created(connect: int, lobby_id: int) -> void:

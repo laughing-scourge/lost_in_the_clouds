@@ -19,13 +19,13 @@ func spawn_player(peer_id: int) -> void:
 
 
 func initialize_player(player: CharacterBody3D) -> void:
-	player.position = $SpawnPoi.position
+	player.position = $SpawnPoint.position
 	for other in players:
 		player.add_collision_exception_with(other)
 	players.append(player)
 
 
-func _on_network_ui_pressed() -> void:
+func _on_network_ui_host_pressed() -> void:
 	Networking.host_lobby()
 
 

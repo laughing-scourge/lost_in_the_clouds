@@ -1,4 +1,4 @@
-class_name player_controller extends CharacterBody3D
+extends CharacterBody3D
 
 
 @export var walk_speed = 5.0
@@ -6,21 +6,23 @@ class_name player_controller extends CharacterBody3D
 @export var rotate_speed = 5
 @export var jump_velocity = 4.5
 
-@onready var head = $Pivot/heads/head
+
+@onready var head: SpringArm3D = $Pivot/heads/head
 
 var input_dir: Vector2
 var direction: Vector3
 var last_direction: Vector3 = Vector3.FORWARD
 var wanted_speed: float
+var auth: int
 
-
-func enter_tree() -> void:
-	set_multiplayer_authority(name.to_int())
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int(),true)
 
 func _physics_process(delta: float) -> void:
 	
 	if not is_multiplayer_authority():
 		return
+	
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -51,4 +53,7 @@ func _physics_process(delta: float) -> void:
 		rotation.y = lerp_angle(rotation.y, target_angle, delta * rotate_speed)
 	
 	move_and_slide()
+	
+	head._camera_process(delta)
+	
 	
