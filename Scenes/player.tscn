@@ -14,14 +14,6 @@ albedo_texture = ExtResource("2_6t5aa")
 [sub_resource type="SphereShape3D" id="SphereShape3D_6t5aa"]
 radius = 0.2
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6t5aa"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1783821798]
 script = ExtResource("1_v0iea")
 run_speed = 10.0
@@ -65,6 +57,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.9)
 fov = 90.0
 
 [node name="components" type="Node" parent="." unique_id=1830880392]
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=910417460]
-replication_config = SubResource("SceneReplicationConfig_6t5aa")
