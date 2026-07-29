@@ -32,7 +32,6 @@ var look_mode: CURRENT_LOOK_MODE = -1
 var mouse_mode: Input.MouseMode = Input.MOUSE_MODE_CAPTURED
 
 func _enter_tree() -> void:
-	
 	print_debug(get_parent().get_parent().get_parent().name)
 
 
