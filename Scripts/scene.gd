@@ -22,6 +22,7 @@ func initialize_player(player: CharacterBody3D) -> void:
 	player.position = $SpawnPoint.position
 	for other in players:
 		player.add_collision_exception_with(other)
+		player.get_child(2).get_child(1).call_deferred("queue_free")
 	players.append(player)
 
 
