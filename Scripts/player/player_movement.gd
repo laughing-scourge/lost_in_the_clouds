@@ -54,6 +54,5 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	
-	head._camera_process(delta)
 	
 	

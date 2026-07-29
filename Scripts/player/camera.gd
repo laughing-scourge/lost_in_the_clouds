@@ -44,7 +44,7 @@ func _unhandled_input(event: InputEvent):
 
 
 func _physics_process(delta: float) -> void:
-	pass
+	_camera_process(delta)
 	
 
 func  _camera_process(delta: float) -> void:
