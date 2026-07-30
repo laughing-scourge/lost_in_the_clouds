@@ -8,6 +8,7 @@ extends CharacterBody3D
 
 
 @onready var head: SpringArm3D = $Pivot/heads/head
+@onready var components: Node = $components
 
 var input_dir: Vector2
 var direction: Vector3
@@ -23,14 +24,23 @@ func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
 	
-	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
+	_calculate_playermovement(delta)
+	
+	move_and_slide()
+	
+	
+
+func _calculate_playermovement(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
 	
-	input_dir = Input.get_vector("rightward", "letfward", "backward", "forward")
+	if not components.inventory_open:
+		input_dir = Input.get_vector("rightward", "letfward", "backward", "forward")
+	else:
+		input_dir = Vector2.ZERO
 	
 	var move_dir = head.global_basis.x * input_dir.x + head.global_basis.z * input_dir.y
 	move_dir.y = 0
@@ -51,8 +61,3 @@ func _physics_process(delta: float) -> void:
 	if move_dir.length() > 0.01:
 		var target_angle = atan2(move_dir.x, move_dir.z)
 		rotation.y = lerp_angle(rotation.y, target_angle, delta * rotate_speed)
-	
-	move_and_slide()
-	
-	
-	

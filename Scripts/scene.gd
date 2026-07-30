@@ -7,9 +7,11 @@ var players: Array[CharacterBody3D]
 func _ready() -> void:
 	Networking.host_created.connect(on_host_created)
 
+
 func on_host_created() -> void:
 	spawn_player(multiplayer.get_unique_id())
 	multiplayer.peer_connected.connect(spawn_player)
+
 
 func spawn_player(peer_id: int) -> void:
 	var new_player := PLAYER.instantiate() as CharacterBody3D
@@ -27,6 +29,7 @@ func initialize_player(player: CharacterBody3D) -> void:
 
 func _on_network_ui_host_pressed() -> void:
 	Networking.host_lobby()
+	$"network ui".queue_free()
 
 
 func _on_multiplayer_spawner_spawned(node: Node) -> void:

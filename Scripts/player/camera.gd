@@ -7,6 +7,7 @@ enum CURRENT_LOOK_MODE{
 
 @onready var FP_postion: Vector3 = %FP_head_postion.position
 @onready var TP_postion: Vector3 = %TP_head_postion.position
+@onready var components: Node = $"../../../components"
 
 @export_category("reffrences")
 @onready var character_body_3d: CharacterBody3D = $"../../.."
@@ -27,12 +28,15 @@ enum CURRENT_LOOK_MODE{
 var _rotation: Vector2
 var mouse_delta: Vector2
 var pitch_yaw: Vector2
-
+var inventory_open: bool = false
 var look_mode: CURRENT_LOOK_MODE = -1
 var mouse_mode: Input.MouseMode = Input.MOUSE_MODE_CAPTURED
 
 func _enter_tree() -> void:
-	print_debug(get_parent().get_parent().get_parent().name)
+	if not is_multiplayer_authority():
+		if get_child(0):
+			get_child(0).call_deferred("queue_free")
+		return
 
 
 func _unhandled_input(event: InputEvent):
@@ -44,23 +48,22 @@ func _unhandled_input(event: InputEvent):
 
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
+	
 	_camera_process(delta)
-	
-
-func  _camera_process(delta: float) -> void:
-	
-	toggle_look_mode()
-	camera_movement()
-	
-	if Input.is_action_just_pressed("ui_cancel"):
-		if mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			mouse_mode = Input.MOUSE_MODE_VISIBLE
-		elif mouse_mode == Input.MOUSE_MODE_VISIBLE:
-			mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	mouse_delta = Vector2.ZERO
 	Input.mouse_mode = mouse_mode
-	
+
+
+func  _camera_process(delta: float) -> void:
+	if not inventory_open:
+		toggle_look_mode()
+		camera_movement()
+		mouse_mode = Input.MOUSE_MODE_CAPTURED
+	else:
+		mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 func camera_movement():

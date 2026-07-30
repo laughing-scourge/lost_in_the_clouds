@@ -1,1 +1,1 @@
-class_name inventory extends Node
+class_name Inventory extends Node

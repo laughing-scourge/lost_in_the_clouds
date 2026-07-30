@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://b5fed1tqx5ybj" path="res://Scripts/player/player_movement.gd" id="1_v0iea"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_6t5aa"]
 [ext_resource type="Script" uid="uid://b74pkao63d7dn" path="res://Scripts/player/camera.gd" id="2_cvnsp"]
+[ext_resource type="Script" uid="uid://ci7t3d247c16f" path="res://Scripts/player/components.gd" id="4_vgqql"]
+[ext_resource type="PackedScene" uid="uid://dlvqnohp33g4g" path="res://Scenes/inventory/inventory.tscn" id="5_fkybt"]
+[ext_resource type="Script" uid="uid://qv88kl67m4xl" path="res://Scripts/components/inventory_comp.gd" id="6_x3wgy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f60y1"]
 
@@ -65,7 +68,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.9)
 fov = 90.0
 
 [node name="components" type="Node" parent="." unique_id=1830880392]
+script = ExtResource("4_vgqql")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="components" unique_id=507201288]
 root_path = NodePath("../..")
 replication_config = SubResource("SceneReplicationConfig_6t5aa")
+
+[node name="inventory" parent="components" unique_id=2011891023 instance=ExtResource("5_fkybt")]
+script = ExtResource("6_x3wgy")
